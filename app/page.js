@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 
 export default function HomePage() {
-  const [baseUrl, setBaseUrl] = useState("http://localhost:8080");
+  const [baseUrl, setBaseUrl] = useState("http://johnny-johnny.mycroftai.org:8080");
   const [senderType, setSenderType] = useState("FRIEND");
   const [recipientKey, setRecipientKey] = useState("john");
   const [text, setText] = useState("Hey man are you free tonight?");
@@ -90,7 +90,7 @@ export default function HomePage() {
           <div>
             <h1 style={{ margin: 0, fontSize: 32 }}>Chatbot Test UI</h1>
             <p className="muted" style={{ marginTop: 8 }}>
-              Next.js front end for testing your Spring Boot + Drools + OpenAI chatbot backend.
+              Next.js front end for testing johnny-johnny - A  Spring Boot + Drools + OpenAI chatbot backend.
             </p>
           </div>
 
@@ -102,13 +102,6 @@ export default function HomePage() {
               onChange={(e) => setBaseUrl(e.target.value)}
               placeholder="http://localhost:8080"
             />
-          </div>
-
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <button onClick={checkHealth} disabled={loadingHealth}>
-              {loadingHealth ? "Checking..." : "Check health"}
-            </button>
-            {health?.status && <span className="badge">Health: {health.status}</span>}
           </div>
         </div>
 
@@ -182,17 +175,6 @@ export default function HomePage() {
               No candidate with variant "{responseType}" was returned by the backend.
             </div>
           )}
-        </div>
-
-        <div className="card">
-          <h3 style={{ marginTop: 0 }}>Expected backend response shape</h3>
-          <pre className="small">{`{
-  "candidates": [
-    { "variant": "concise", "text": "..." },
-    { "variant": "natural", "text": "..." },
-    { "variant": "bold", "text": "..." }
-  ]
-}`}</pre>
         </div>
       </div>
     </main>
