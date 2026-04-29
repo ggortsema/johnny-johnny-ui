@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 
 export default function HomePage() {
-  const [baseUrl, setBaseUrl] = useState("http://johnny-johnny.mycroftai.org:8080");
+  const [baseUrl, setBaseUrl] = useState(process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080");
   const [senderType, setSenderType] = useState("FRIEND");
   const [recipientKey, setRecipientKey] = useState("john");
   const [text, setText] = useState("Hey man are you free tonight?");
