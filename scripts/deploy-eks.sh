@@ -14,7 +14,7 @@ ECR_REPOSITORY="${ECR_REPOSITORY:-johnny-johnny/johnny-johnny-ui}"
 PUBLIC_BASE_URL="${PUBLIC_BASE_URL:-https://johnny-johnny.mycroftai.org}"
 
 AUTH0_DOMAIN="${AUTH0_DOMAIN:-dev-ude3gljkecu7ylzt.us.auth0.com}"
-AUTH0_CLIENT_ID="${AUTH0_CLIENT_ID:-}"
+AUTH0_CLIENT_ID="${AUTH0_CLIENT_ID:-3aeVZmWU2NFUcQ8ANlxy0BC9RJmbsOvf}"
 AUTH0_AUDIENCE="${AUTH0_AUDIENCE:-https://johnny-johnny.mycroftai.org}"
 AUTH0_SCOPE="${AUTH0_SCOPE:-openid profile email invoke:assistant read:backlogs operate:backlogs}"
 API_BASE_URL="${JOHNNY_JOHNNY_API_BASE_URL:-/api/v1}"
