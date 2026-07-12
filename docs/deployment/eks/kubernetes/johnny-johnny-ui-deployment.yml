@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: johnny-johnny-ui
+  namespace: johnny-johnny
+  labels:
+    app: johnny-johnny-ui
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: johnny-johnny-ui
+  template:
+    metadata:
+      labels:
+        app: johnny-johnny-ui
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: johnny-johnny-ui
+          image: __IMAGE_URI__
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+          env:
+            - name: AUTH0_DOMAIN
+              value: __AUTH0_DOMAIN__
+            - name: AUTH0_CLIENT_ID
+              value: __AUTH0_CLIENT_ID__
+            - name: AUTH0_AUDIENCE
+              value: __AUTH0_AUDIENCE__
+            - name: AUTH0_SCOPE
+              value: __AUTH0_SCOPE__
+            - name: JOHNNY_JOHNNY_API_BASE_URL
+              value: __API_BASE_URL__
+            - name: JOHNNY_JOHNNY_AGENT_ORIGIN
+              value: "http://johnny-johnny-agent"
+            - name: JOHNNY_JOHNNY_PROJECT_TITLE
+              value: __PROJECT_TITLE__
+            - name: JOHNNY_JOHNNY_PROVIDER
+              value: __PROVIDER__
+            - name: JOHNNY_JOHNNY_PROVIDER_ACCOUNT
+              value: __PROVIDER_ACCOUNT__
+          ports:
+            - name: http
+              containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /health/live
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 20
+            timeoutSeconds: 2
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          volumeMounts:
+            - name: temporary-files
+              mountPath: /tmp
+      volumes:
+        - name: temporary-files
+          emptyDir: {}
